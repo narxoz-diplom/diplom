@@ -126,6 +126,29 @@ services:
       timeout: 5s
       retries: 5
 
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "8084:8084"
+    environment:
+      KEYCLOAK_URL: http://keycloak:8080
+      KEYCLOAK_REALM: microservices-realm
+      KEYCLOAK_CLIENT_ID: microservices-client
+      KEYCLOAK_ADMIN_USERNAME: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_JWKS_URI: http://keycloak:8080/realms/microservices-realm/protocol/openid-connect/certs
+    depends_on:
+      keycloak:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8084/actuator/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   file-service:
     build:
       context: ./file-service
@@ -203,11 +226,14 @@ services:
     ports:
       - "8083:8083"
     environment:
+      AUTH_SERVICE_URL: http://auth-service:8084
       FILE_SERVICE_URL: http://file-service:8081
       NOTIFICATION_SERVICE_URL: http://notification-service:8082
       KEYCLOAK_URL: http://keycloak:8080
       KEYCLOAK_JWKS_URI: http://keycloak:8080/realms/microservices-realm/protocol/openid-connect/certs
     depends_on:
+      auth-service:
+        condition: service_healthy
       file-service:
         condition: service_healthy
       notification-service:
