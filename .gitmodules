@@ -10,3 +10,6 @@
 [submodule "frontend"]
 	path = frontend
 	url = https://github.com/narxoz-diplom/frontend.git
+[submodule "api-gateway"]
+	path = api-gateway
+	url = https://github.com/narxoz-diplom/api-gateway.git
