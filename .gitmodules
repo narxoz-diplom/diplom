@@ -1,0 +1,12 @@
+[submodule "notification-service"]
+	path = notification-service
+	url = https://github.com/narxoz-diplom/notification-service.git
+[submodule "monitoring"]
+	path = monitoring
+	url = https://github.com/narxoz-diplom/monitoring.git
+[submodule "file-service"]
+	path = file-service
+	url = https://github.com/narxoz-diplom/file-service.git
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/narxoz-diplom/frontend.git
