@@ -16,3 +16,6 @@
 [submodule "auth-service"]
 	path = auth-service
 	url = https://github.com/narxoz-diplom/auth-service.git
+[submodule "course-service"]
+	path = course-service
+	url = https://github.com/narxoz-diplom/course-service.git
